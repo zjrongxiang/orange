@@ -95,6 +95,7 @@ http {
             set $upstream_request_uri '';
             set $upstream_url '';
             set $upstream_scheme '';
+            set $target '';
 
             rewrite_by_lua_block {
                 local orange = context.orange
