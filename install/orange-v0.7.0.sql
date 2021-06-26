@@ -523,6 +523,31 @@ VALUES
 /*!40000 ALTER TABLE `jwt_auth` ENABLE KEYS */;
 UNLOCK TABLES;
 
+# Dump of table signature_auth_header
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `signature_auth_header`;
+
+CREATE TABLE `signature_auth_header` (
+                                  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+                                  `key` varchar(255) NOT NULL DEFAULT '',
+                                  `value` varchar(2000) NOT NULL DEFAULT '',
+                                  `type` varchar(11) DEFAULT '0',
+                                  `op_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+                                  PRIMARY KEY (`id`),
+                                  UNIQUE KEY `unique_key` (`key`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+LOCK TABLES `signature_auth_header` WRITE;
+/*!40000 ALTER TABLE `signature_auth` DISABLE KEYS */;
+
+INSERT INTO `signature_auth_header` (`id`, `key`, `value`, `type`, `op_time`)
+VALUES
+(1,'1','{}','meta','2016-11-11 11:11:11');
+
+/*!40000 ALTER TABLE `signature_auth` ENABLE KEYS */;
+UNLOCK TABLES;
+
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;

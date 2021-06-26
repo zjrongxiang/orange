@@ -201,6 +201,14 @@ return function(config, store)
         res:render("consul_balancer")
     end)
 
+    dashboard_router:get("/node", function(req, res, next)
+        res:render("node")
+    end)
+
+    dashboard_router:get("/signature_auth_header", function(req, res, next)
+        res:render("signature_auth_header/signature_auth_header")
+    end)
+
     --- 加载其他"可用"插件API
     local available_plugins = config.plugins
     if not available_plugins or type(available_plugins) ~= "table" or #available_plugins<1 then

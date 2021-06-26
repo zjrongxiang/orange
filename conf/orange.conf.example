@@ -16,7 +16,11 @@
         "waf",
         "divide",
         "kvstore",
-        "balancer"
+        "persist",
+        "node",
+        "balancer",
+        "consul_balancer",
+        "signature_auth_header"
     ],
     "store": "mysql",
     "store_mysql": {
@@ -37,7 +41,7 @@
         "desc": "mysql configuration"
     },
     "dashboard": {
-        "auth": false,
+        "auth": true,
         "session_secret": "y0ji4pdj61aaf3f11c2e65cd2263d3e7e5",
         "whitelist": [
             "^/auth/login$",
