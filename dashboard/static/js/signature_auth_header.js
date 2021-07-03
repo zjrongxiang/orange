@@ -199,7 +199,7 @@
 
                 if (!signame || !secretkey) {
                     tmp_success = false;
-                    tmp_tip = "签名字段和密钥字段均不得为空";
+                    tmp_tip = "应用名和密钥字段均不得为空";
                 }
 
                 credential.signame = signame;
@@ -212,7 +212,8 @@
                 result.data = tmp_tip;
                 return result;
             }
-            result.data = credentials[0];
+            //result.data = credentials[0];
+            result.data = credentials;
 
             //判断个数是否匹配
             if (credentials.length < 1) {

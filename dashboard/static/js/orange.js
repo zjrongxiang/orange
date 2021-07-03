@@ -1296,6 +1296,7 @@
                                     },
                                     dataType: 'json',
                                     success: function (result) {
+
                                         if (result.success) {
                                             //重新渲染规则
                                             _this.loadConfigs(op_type, context);

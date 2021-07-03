@@ -126,7 +126,21 @@ local function filter_rules(sid, plugin, ngx_var_uri,requestParam,headers)
                         ngx.log(ngx.INFO, "[SignatureAuthHeader-Pass-Rule] ", rule.name, " uri:", ngx_var_uri)
                     end
                     local credentials = handle.credentials
-                    local authorized = is_authorized(credentials.secretkey,requestParam,headers)
+                    -- 根据用户名(signame)检索secretkey
+                    local credentials_secretkey = ""
+                    for i, c in ipairs(credentials) do
+                        if headers["app_name"] == c.signame then
+                            credentials_secretkey = c.secretkey
+                            break
+                        end
+                    end
+                    if credentials_secretkey == "" then
+                        ngx.log(ngx.INFO, headers["app_name"] .. " DON'T HAVE PERMISSION TO ACCESS THIS INTERFACE.")
+                        return ngx.exit(tonumber(handle.code) or 403, { message = headers["app_name"] .. " DON'T HAVE PERMISSION TO ACCESS THIS INTERFACE." })
+                    end
+
+                    -- 请求中header中应用已经注册，后开始验证
+                    local authorized = is_authorized(credentials_secretkey,requestParam,headers)
                     ngx.log(ngx.INFO, "[SignatureAuthHeader-authorized] ",authorized)
                     if authorized then
                         return true

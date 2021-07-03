@@ -77,10 +77,15 @@
                             {@/each}
                         </td>
 
-                        <td class="left rule-credential-td">
+                        <!--  <td class="left rule-credential-td">
                             {@if r.handle.credentials }
                                 <span>${r.handle.credentials.signame}:${r.handle.credentials.secretkey}</span><br/>
                             {@/if}
+                        </td>-->
+                        <td class="left rule-credential-td">
+                            {@each r.handle.credentials as c, index}
+                            <span>${c.signame}:${c.secretkey}</span><br/>
+                            {@/each}
                         </td>
 
                         <td class="left rule-urltmpl-td">
