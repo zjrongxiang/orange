@@ -16,7 +16,7 @@ local function get_ip_by_hostname(hostname)
 end
 
 function _M.init(config)
-    ngx.log(ngx.ERR, "node init")
+    ngx.log(ngx.INFO, "node init")
 end
 
 function _M.get_ip()

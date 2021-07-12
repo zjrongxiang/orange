@@ -147,7 +147,7 @@ local function get_ip_by_hostname(hostname)
 end
 
 function _M.init(config)
-    ngx.log(ngx.ERR, "persist init worker")
+    ngx.log(ngx.INFO, "persist init worker")
 
     local interval = 60
 
