@@ -129,6 +129,7 @@ local function filter_rules(sid, plugin, ngx_var_uri,requestParam,headers)
                     -- 根据用户名(signame)检索secretkey
                     local credentials_secretkey = ""
                     for i, c in ipairs(credentials) do
+                        --ngx.log(ngx.INFO, "[SignatureAuthHeader-Pass-Rule] ", headers["app_name"])
                         if headers["app_name"] == c.signame then
                             credentials_secretkey = c.secretkey
                             break
@@ -136,6 +137,7 @@ local function filter_rules(sid, plugin, ngx_var_uri,requestParam,headers)
                     end
                     if credentials_secretkey == "" then
                         ngx.log(ngx.INFO, headers["app_name"] .. " DON'T HAVE PERMISSION TO ACCESS THIS INTERFACE.")
+                        ngx.log(ngx.INFO, " DON'T HAVE PERMISSION TO ACCESS THIS INTERFACE.")
                         return ngx.exit(tonumber(handle.code) or 403, { message = headers["app_name"] .. " DON'T HAVE PERMISSION TO ACCESS THIS INTERFACE." })
                     end
 
@@ -184,6 +186,10 @@ function SignatureAuthHeaderHandler:access(conf)
     --获取请求的header信息
     local headers = ngx.req.get_headers()
 
+    --for k, v in pairs(headers) do
+    ---    ngx.log(ngx.INFO,"[SignatureAuthHeader][print header:",k .. ":" .. v)
+    --end
+
     if not enable or enable ~= true or not meta or not ordered_selectors or not selectors then
         return
     end
@@ -191,7 +197,7 @@ function SignatureAuthHeaderHandler:access(conf)
     local ngx_var_uri = ngx.var.uri
 
     for i, sid in ipairs(ordered_selectors) do
-        ngx.log(ngx.INFO, "==[SignatureAuthHeader][PASS THROUGH SELECTOR:", sid, "]")
+        ngx.log(ngx.INFO, "[SignatureAuthHeader][PASS THROUGH SELECTOR:", sid, "]")
         local selector = selectors[sid]
         if selector and selector.enable == true then
             local selector_pass
