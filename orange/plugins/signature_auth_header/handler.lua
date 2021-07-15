@@ -136,9 +136,8 @@ local function filter_rules(sid, plugin, ngx_var_uri,requestParam,headers)
                         end
                     end
                     if credentials_secretkey == "" then
-                        ngx.log(ngx.INFO, headers["app_name"] .. " DON'T HAVE PERMISSION TO ACCESS THIS INTERFACE.")
                         ngx.log(ngx.INFO, " DON'T HAVE PERMISSION TO ACCESS THIS INTERFACE.")
-                        return ngx.exit(tonumber(handle.code) or 403, { message = headers["app_name"] .. " DON'T HAVE PERMISSION TO ACCESS THIS INTERFACE." })
+                        return ngx.exit(tonumber(handle.code) or 403, { message = " DON'T HAVE PERMISSION TO ACCESS THIS INTERFACE." })
                     end
 
                     -- 请求中header中应用已经注册，后开始验证
