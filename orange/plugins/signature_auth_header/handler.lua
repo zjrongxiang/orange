@@ -181,7 +181,17 @@ function SignatureAuthHeaderHandler:access(conf)
     local ordered_selectors = meta and meta.selectors
 
     --获取请求的query信息
-    local requestParam = ngx.req.get_uri_args()
+    local requestParam = nil
+    local request_method = ngx.var.request_method
+    ngx.log(ngx.INFO, "[SignatureAuthHeader]:request_method[", request_method, "]")
+    if request_method == "GET" then
+        requestParam = ngx.req.get_uri_args()
+    elseif request_method == "POST" then
+        ngx.req.read_body()
+        requestParam = ngx.req.get_post_args()
+    end
+
+    --local requestParam = ngx.req.get_uri_args()
     --获取请求的header信息
     local headers = ngx.req.get_headers()
 
